@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--
+      @file Log sleep diary events
+      @author Andrew Sayers (andrew-github.com@pileofstuff.org)
+      @copyright 2020
+      @license GPLv2
+    -->
+  <head>
+    <meta charset="utf-8">
+    <title>Sleep diary - logger</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+
+
+    <form>
+      <div id="WAKE-SLEEP-wrapper">
+        <div class="WAKE-SLEEP"><img id="WAKE" src="Breathe-weather-clear.svg"><div id="WAKE-time">&nbsp;</div></div>
+        <div class="WAKE-SLEEP"><img id="SLEEP" src="Breathe-weather-clear-night.svg"><div id="SLEEP-time">&nbsp;</div></div>
+      </div>
+      <div id="message"></div>
+      <input type="hidden" id="username">
+      <input type="hidden" id="time">
+      <input type="hidden" id="now">
+      <div id="guidance" style="display:none">
+        <hr>
+        <table>
+          <caption style="font-size:5vw">Suggestions</caption>
+          <thead>
+            <tr><td>Bed time<td># sleeps<td>Day length</tr>
+          </thead>
+          <tbody id="time-list"></tbody>
+        </table>
+        <div style="font-size:3vw">
+          Bed times are calculated from your most recent bed time.<br>
+          Always make sure to get enough sleep.<br>
+          These suggestions are just a guide.
+        </div>
+        <hr>
+      </div>
+    </form>
+    <a id="menu" href="../menu/">Menu</a>
+
+
+    <!-- Load Sleep Diary Toolkit -->
+    <script src="../../sleep-diary-toolkit.js"></script>
+    
+    <!-- Replace the following with your JavaScript -->
+    <script src="luxon.min.js"></script>
+    <script src="index.js"></script>
+
+
+  </body>
+</html>

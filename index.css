@@ -1,0 +1,101 @@
+/**
+ * @file Log sleep diary events
+ * @author Andrew Sayers (andrew-github.com@pileofstuff.org)
+ * @copyright 2020
+ * @license GPLv2
+ */
+
+/*
+ * Style the background and icons:
+ */
+
+body {
+    text-align: center;
+    font-size: 6vw;
+}
+body.transition {
+    transition: 1s;
+}
+
+#WAKE-SLEEP-wrapper {
+    max-height: 100vh;
+}
+
+@media (orientation: landscape) {
+    .WAKE-SLEEP {
+        display: inline-block;
+    }
+    img {
+        width: 45vw;
+        max-width: 45vw;
+        max-height: 45vw;
+    }
+}
+
+@media (orientation: portrait) {
+    img {
+        display: inline-block;
+        height: 40vh;
+        max-width: 100vw;
+        max-height: 100vw;
+    }
+}
+
+.SLEEP #SLEEP {
+    /* I find the moon icon a bit too bright in SLEEP mode */
+    opacity: 0.9;
+}
+
+.SLEEP #WAKE {
+    /* I find the sun icon too bright in SLEEP mode */
+    opacity: 0.5;
+}
+
+#WAKE,#SLEEP {
+    cursor:pointer;
+}
+
+/*
+ * Style the "menu" button:
+ */
+
+a {
+    color: black;
+}
+
+.SLEEP a {
+    color: #88f;
+}
+
+/*
+ * Style the guidance for waking up at a specific date/time:
+ */
+
+#guidance {
+    margin-top: 4vh;
+    font-size: 6vw;
+}
+
+table {
+    margin: auto;
+}
+
+thead {
+    font-style: italic;
+}
+
+td {
+    padding: 0 1vw;
+}
+
+/*
+ * Change the background in WAKE/SLEEP mode:
+ */
+
+.WAKE {
+   background: #fea;
+}
+.SLEEP {
+   background: #32a;
+   color: white;
+}
