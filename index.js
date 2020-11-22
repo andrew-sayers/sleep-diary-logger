@@ -61,8 +61,6 @@ function update(event) {
 
 }
 
-browser_utils.fix_browser_issues();
-
 document.getElementById('WAKE' ).addEventListener( 'click', update );
 document.getElementById('SLEEP').addEventListener( 'click', update );
 
