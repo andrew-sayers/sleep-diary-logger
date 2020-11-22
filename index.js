@@ -17,9 +17,9 @@ var WAKE_time   = document.getElementById('WAKE-time'),
 function update(event) {
 
     var diary = new Diary(),
-        analysed_diary = diary.analyse(),
-        latest_sleep = analysed_diary.sleeps[analysed_diary.sleeps.length-1],
-        now = luxon.DateTime.local()
+        now = luxon.DateTime.local(),
+        latest_sleep,
+        latest_wake
     ;
 
     // handle clicks on the icons:
@@ -28,23 +28,32 @@ function update(event) {
     }
 
     // update event times:
-    if ( analysed_diary.sleeps.length ) {
-        SLEEP_time.innerHTML = now.diff(luxon.DateTime.fromMillis(latest_sleep.estimated_sleep_time)).toFormat('hh:mm') + ' ago';
-        WAKE_time.innerHTML  = now.diff(luxon.DateTime.fromMillis(latest_sleep.estimated_wake_time)).toFormat('hh:mm') + ' ago';
+    diary.sleep_wake_periods()
+        .records
+        .forEach(function(p) {
+            if ( p.status == 'asleep' ) latest_sleep = p.start_time;
+            if ( p.status == 'awake'  ) latest_wake  = p.start_time;
+        });
+
+    if ( latest_sleep ) {
+        SLEEP_time.innerHTML = now.diff(luxon.DateTime.fromMillis(latest_sleep)).toFormat('hh:mm') + ' ago';
+    }
+    if ( latest_wake ) {
+        WAKE_time.innerHTML = now.diff(luxon.DateTime.fromMillis(latest_wake)).toFormat('hh:mm') + ' ago';
     }
 
-    if ( analysed_diary.suggested_day_lengths ) {
+    var suggested_day_lengths = diary.suggested_day_lengths();
+    if ( suggested_day_lengths ) {
         times.removeAttribute('style');
-        time_list.innerHTML
-            = analysed_diary.suggested_day_lengths
-            .map(function(suggestion) {
-                return (
-                    '<tr><td>' + luxon.DateTime.fromMillis(suggestion.bed_time).toFormat('HH:mm') +
-                        '<td>' +                           suggestion.days_remaining +
-                        '<td>' + luxon.DateTime.fromMillis(suggestion.day_length).toFormat('HH:mm') +
-                    '</tr>'
-                );
-            }).join('');
+        time_list.innerHTML = '';
+        suggested_day_lengths.forEach(function(suggestion) {
+            time_list.innerHTML += (
+                '<tr><td>' + luxon.DateTime.fromMillis(suggestion.bed_time).toFormat('HH:mm') +
+                    '<td>' +                          (suggestion.days_remaining||'-') +
+                    '<td>' + luxon.Duration.fromMillis(suggestion.day_length).toFormat('hh:mm') +
+                '</tr>'
+            );
+        });
     } else {
         times.setAttribute('style','display:none');
     }
