@@ -16,16 +16,22 @@ var WAKE_time   = document.getElementById('WAKE-time'),
 
 function update(event) {
 
-    var diary = new Diary(),
-        now = luxon.DateTime.local(),
-        latest_sleep,
-        latest_wake
-    ;
+    var diary = new Diary(); // DO NOT combine this with the following "var" statement
 
     // handle clicks on the icons:
     if ( event ) {
         diary.add_entry(event.target.id);
     }
+
+    /*
+     * We declate "now" after adding the entry, because otherwise the
+     * interface sometimes thinks the latest diary entry was added in
+     * the future.
+     */
+    var now = luxon.DateTime.local(),
+        latest_sleep,
+        latest_wake
+    ;
 
     // update event times:
     diary.sleep_wake_periods()
